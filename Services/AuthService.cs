@@ -38,6 +38,8 @@ public class AuthService
 
     private string GetRequiredConfig(string key)
     {
-        return _config[$"Api:{key}"] ?? throw new InvalidOperationException($"Missing configuration: Api:{key}");
+        string? config = _config[$"Api:{key}"];
+        if(string.IsNullOrWhiteSpace(config)) throw new InvalidOperationException($"Missing configuration: Api:{key}");
+        return config;
     }
 }
